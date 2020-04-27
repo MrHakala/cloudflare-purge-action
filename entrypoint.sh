@@ -32,13 +32,17 @@ if [ -z "$CLOUDFLARE_ZONE" ]; then
   exit 1
 fi
 
-# If URL array is passed, only purge those. Otherwise, purge everything.
+# If URL array is passed, only purge those.
 if [ -n "$PURGE_URLS" ]; then
   set -- --data '{"files":'"${PURGE_URLS}"'}'
 else
-  set -- --data '{"purge_everything":true}'
+  # If PURGE_HOSTS array is passed, only purge those. Otherwise, purge everything.
+  if [ -n "$PURGE_HOSTS" ]; then
+    set -- --data '{"hosts":'"${PURGE_HOSTS}"'}'
+  else
+    set -- --data '{"purge_everything":true}'
+  fi
 fi
-
 
 ######## Call the API and store the response for later. ########
 
