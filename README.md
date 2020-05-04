@@ -15,7 +15,8 @@ All sensitive variables should be [set as encrypted secrets](https://help.github
 | Key | Value | Suggested Type | Required |
 | ------------- | ------------- | ------------- | ------------- |
 | `CLOUDFLARE_ZONE` | **Required for both methods below.** The Zone ID of your domain, which can be found in the right sidebar of your domain's overview page on the Cloudflare dashboard. For example, `xyz321xyz321xyz321xyz321xyz321xy`. | `secret` | **Yes** |
-| `PURGE_URLS` | **Optional.** An array of **fully qualified URLs** to purge. For example: `["https://jarv.is/style.css", "https://jarv.is/favicon.ico"]`. If unset, the action will purge everything (which is suggested — [more info below](#purging-specific-files)). | `env` | No |
+| `PURGE_URLS` | **Optional.** An array of **fully qualified URLs** to purge. For example: `["https://jarv.is/style.css", "https://jarv.is/favicon.ico"]`. If unset, the action will try to purge by host `PURGE_HOSTS`. | `env` | No |
+| `PURGE_HOSTS` | **Optional.** An array of hosts to purge. For example: `["dev.test.com", "www.test.com"]` ([CloudFlare Docs](https://api.cloudflare.com/#zone-purge-files-by-cache-tags-or-host)). **If `PURGE_URLS` and `PURGE_HOSTS` are unset, the action will purge everything** (which is suggested — [more info below](#purging-specific-files)). | `env` | No |
 
 
 ### Authentication Variables
